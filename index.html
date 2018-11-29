@@ -1,0 +1,51 @@
+
+<script>
+    function whenPayment (payment) {
+      console.log(payment)
+    }
+    function whenError (error) {
+      console.log(error)
+    }
+
+</script>
+    
+    <form onsubmit="return false">
+        <input id="script" size="50" type="text" placeholder="Enter Bitcoin script" value="1 1 OP_ADD"/>
+        <button id="render-button">Render</button>
+      </form>
+
+      <div id='some-button'></div>
+<!-- <div class="money-button" id="some-button"
+     data-label="Test Script"
+     data-outputs='[{"type":"SCRIPT","currency":"USD","amount":"0","script":"1 1 OP_ADD"}]'
+     data-type="tip"
+     data-on-payment="whenPayment"
+     data-on-error="whenError"
+></div> -->
+
+<!-- This line can go anywhere -->
+
+<script src="https://api.moneybutton.com/moneybutton.js"></script>
+
+<script>
+    function renderButton () {
+      moneyButton.render(
+        document.getElementById('some-button'),
+        {
+          outputs: [
+            {
+              type:'SCRIPT',
+              script: document.getElementById('script').value,
+              amount: '0.02',
+              currency: 'USD'
+            }
+          ],
+          label: 'Swipe Script',
+          onPayment: whenPayment,
+          onError: whenError
+        }
+      )
+    }
+    document.getElementById('render-button').onclick = renderButton
+    renderButton()
+  </script>
